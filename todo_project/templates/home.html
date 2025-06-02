@@ -21,7 +21,8 @@
       <div class="d-flex align-items-center gap-3">
         <small class="text-muted"><i class="bi bi-calendar me-1"></i>{{ i.date }}</small>
         <label class="fw-bold me-2">{{ i.priority}}</label>
-        <button class="icon-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+        <a href="{% url 'update' i.id %}" title="update">
+        <button class="icon-btn bi bi-pencil"></button></a>
         <a href="{% url 'delete' i.id %}" title="Delete">
           <button class="icon-btn"><i class="bi bi-trash"></i></button>
         </a>
