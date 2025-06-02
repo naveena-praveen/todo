@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block content %}
+<form method="post">
+  <div
+    class="shadow p-3 mb-5 bg-body rounded"
+    style="margin: 50px; align-items: center"
+  >
+    <form method="post">
+      {% csrf_token %}
+      <input
+        type="text"
+        name="title"
+        class="form-control"
+        placeholder="title"
+      /><br /><br />
+      <input
+        type="textarea"
+        name="description"
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        placeholder="description"
+      /><br /><br />
+      <input type="date"name="date"
+      class="form-control" 
+      placeholder="date"/><br /><br />
+      <select class="form-select" aria-label="Default select example" name="priority">
+        <option selected>select your priority</option>
+        <option value="high">High</option>
+        <option value="medium">MEDIUM</option>
+        <option value="low">LOW</option>
+      </select><br><br><br>
+      <div style="display: flex; justify-content: center">
+        <input type="submit" class="btn btn-success" value="Submit" />
+      </div>
+    </form>
+
+    {% endblock %}
+  </div>
+</form>

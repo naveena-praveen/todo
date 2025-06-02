@@ -1,0 +1,25 @@
+    <div class="shadow p-3 mb-5 bg-body rounded" style="margin: 50px; align-items: center;">
+        <form method="post" >
+        {% csrf_token %}
+        <input type="text" name="title" class="form-control" placeholder="title"><br><br>
+        <input type="textarea" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="description"><br><br>
+        <input type="date" name="date" class="form-control" placeholder="date"><br><br>
+        <input type="number"  name="priority" class="form-control" placeholder="priority"><br><br>
+         <div style="display: flex; justify-content: center;">
+            <input type="submit" class="btn btn-success" value="Submit">
+        </div>
+    </form>
+    </div>
+    {% for i in obj1 %}
+        <p>{{ i.title }} -- {{ i.description }} -- {{ i.date }} -- {{ i.priority }}</p>
+    {% empty %}
+        <p>No tasks yet.</p>
+    {% endfor %}
+
+     if request.method=='POST':
+        title=request.POST.get('title')
+        description=request.POST.get('description')
+        date=request.POST.get('date')
+        priority=request.POST.get('priority')
+        obj=task(title=title,description=description,date=date,priority=priority)
+        obj.save()
