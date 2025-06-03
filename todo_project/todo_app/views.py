@@ -3,17 +3,30 @@ from .models import task
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .forms import todoform
+from django.views.generic import ListView , DeleteView
+from django.views.generic.edit import UpdateView
+from django.urls import reverse_lazy
 
-def home(request):
-    obj1=task.objects.all()
-    return render(request,'home.html',{'obj1':obj1})
+class TaskListView(ListView):
+    model=task
+    template_name='home.html'
+    context_object_name='obj1'
 
-def delete(request,id):
+class TaskUpdateView(UpdateView):
+    model=task
+    template_name='update.html'
+    context_object_name='task'
+    form_class= todoform
+    def get_success_url(self):
+        return reverse_lazy('update',kwargs={'pk':self.object.id})
+    
+    
+def Delete(request,id):
     obj=task.objects.get(id=id)
     obj.delete()
     return redirect('home')
 
-def create(request):
+def Create(request):
     if request.method=='POST':
         title=request.POST.get('title')
         description=request.POST.get('description')
@@ -24,10 +37,3 @@ def create(request):
         return redirect('home')
     return render(request,'add.html')
 
-def update(request,id):
-    obj=task.objects.get(id=id)
-    form=todoform(request.POST or None ,instance=obj)
-    if form.is_valid():
-        form.save()
-        return redirect('home')
-    return render(request,'update.html',{'task':obj,'form':form})
